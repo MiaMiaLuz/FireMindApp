@@ -52,6 +52,16 @@ dependencies {
     implementation ("androidx.compose.foundation:foundation:1.6.5")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation("com.google.firebase:firebase-database")
+    implementation ("com.google.firebase:firebase-analytics-ktx:20.0.0")
+    implementation("com.google.firebase:firebase-auth")
+
+    //implementation ("com.google.firebase:firebase-auth-ktx:21.0.0")
+    //implementation ("com.google.firebase:firebase-firestore-ktx:23.0.0")
+    //implementation ("com.google.firebase:firebase-storage-ktx:20.0.0")
+
 
 
 }
