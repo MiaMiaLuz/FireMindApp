@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="lavender">#BB76C6</color>
+    <color name="blanco_roto">#F4EEDB</color>
+    <color name="lavanda_suave">#D69BDF</color>
+    <color name="mora">#6F1E7C</color>
+    <color name="mora_suave">#942DA5</color>
+    <color name="crema">#FFE69A</color>
+
+</resources>
