@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "653944323997",
+    "firebase_url": "https://firemind-779d4-default-rtdb.firebaseio.com",
+    "project_id": "firemind-779d4",
+    "storage_bucket": "firemind-779d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653944323997:android:4d5c084700502279863974",
+        "android_client_info": {
+          "package_name": "com.example.firemind"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChMpYmiffH4xczO65-4jUUtzViT8kdrfU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
