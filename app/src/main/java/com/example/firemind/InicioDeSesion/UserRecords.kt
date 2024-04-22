@@ -50,11 +50,11 @@ class UserRecords (context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
 
     @RequiresApi(Build.VERSION_CODES.P)
     @SuppressLint("Range")
-    fun getUserDataDefault(): User {
+    fun getUserDataDefault(): User? {
         val db = this.readableDatabase
         val columns = arrayOf(COLUMN_ID, COLUMN_EMAIL, COLUMN_PASSWORD, COLUMN_BIO)
-        var cursor = db.query(USER_DATA, columns, null, null, null, null, null)
-        lateinit var userData : User
+        var cursor = db.query("Ejemplo", columns, null, null, null, null, null)
+        var userData: User? = null
         cursor.use {
             while (cursor.moveToNext()) {
                 val email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL))

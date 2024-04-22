@@ -43,9 +43,10 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher {
 
         buttonInicioDeSesion.isEnabled = false
         biometria.isEnabled = false
-        user = UserRecords(this).getUserDataDefault()
+        var testUser = UserRecords(this).getUserDataDefault()
 
-        if(user != null){
+        if(testUser != null){
+            user = testUser
             editTextEmail.setText(user.email)
             editTextPassword.setText(user.pass)
         } else{
