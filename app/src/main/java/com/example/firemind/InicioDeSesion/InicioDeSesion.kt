@@ -1,5 +1,6 @@
 package com.example.firemind.InicioDeSesion
 
+import User
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -28,6 +29,8 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher {
     private lateinit var auth: FirebaseAuth
     private var canAuth : Boolean = false
     private lateinit var prompt: BiometricPrompt.PromptInfo
+    private lateinit var user : User
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inicio_de_sesion)
@@ -38,6 +41,19 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher {
         buttonInicioDeSesion = findViewById(R.id.InicioDeSesion)
         biometria = findViewById(R.id.Biometria)
 
+        buttonInicioDeSesion.isEnabled = false
+        biometria.isEnabled = false
+        user = UserRecords(this).getUserDataDefault()
+
+        if(user != null){
+            editTextEmail.setText(user.email)
+            editTextPassword.setText(user.pass)
+        } else{
+            biometria.isEnabled = false
+            buttonCrearCuenta.isEnabled = false
+            buttonInicioDeSesion.isEnabled = false
+        }
+
         buttonCrearCuenta.setOnClickListener(this)
         buttonInicioDeSesion.setOnClickListener(this)
         biometria.setOnClickListener(this)
@@ -46,6 +62,8 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher {
         auth = FirebaseAuth.getInstance()
         buttonCrearCuenta.addTextChangedListener(this)
         buttonInicioDeSesion.addTextChangedListener(this)
+
+
 
         if(androidx.biometric.BiometricManager.from(this).canAuthenticate()
             == androidx.biometric.BiometricManager.BIOMETRIC_SUCCESS
@@ -129,6 +147,7 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Usuario creado correctamente", Toast.LENGTH_SHORT).show()
+                    UserRecords(this).insertUserData(email, password, true)
                 } else {
                     Toast.makeText(
                         this,
@@ -143,7 +162,7 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher {
         val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         val isDayTime = hourOfDay in 7..21
         val rootView = findViewById<View>(android.R.id.content)
-        val drawableResourceId = if (isDayTime) dia else noche
+        val drawableResourceId = if (isDayTime) noche else dia
         rootView.setBackgroundResource(drawableResourceId)
     }
 
