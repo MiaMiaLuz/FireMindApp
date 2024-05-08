@@ -1,10 +1,11 @@
-package com.example.firemind
+package com.example.firemind.Home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.firemind.R
 
 
 class BlankFragmentMainActivity : Fragment() {
