@@ -1,6 +1,5 @@
 package com.example.firemind.Storage
 
-import User
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,7 +18,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class FragmentListaAlm : Fragment() {
+class FragmentListaCompra : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter
@@ -30,11 +29,10 @@ class FragmentListaAlm : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_lista_alm, container, false)
-        recyclerView = view.findViewById(R.id.recyclerView)
+        val view = inflater.inflate(R.layout.fragment_lista_compra, container, false)
+        recyclerView = view.findViewById(R.id.recyclerViewCompra)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         fetchStorageData()
 
@@ -46,23 +44,41 @@ class FragmentListaAlm : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
+        return when (item.itemId) {
+            R.id.tipo -> {
+                true
+            }
+            R.id.nombre -> {
+                true
+            }
+            R.id.stock -> {
+                true
+            }
+            R.id.addArt -> {
+                true
+            }
+            R.id.end -> {
+
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
+
 
     private fun fetchStorageData() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val storageList = db.getStorage()
+                val storageList = db.getListBuys()
                 dataList.clear()
                 dataList.addAll(storageList)
                 adapter.notifyDataSetChanged()
             } catch (e: Exception) {
                 e.printStackTrace()
             } finally {
-                adapter = MyAdapter(dataList, 1)
+                adapter = MyAdapter(dataList, 2)
                 recyclerView.adapter = adapter
             }
         }
     }
-
 }

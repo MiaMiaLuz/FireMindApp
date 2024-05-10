@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,6 +12,7 @@
             android:layout_height="wrap_content"
             >
             <TextView
+                android:id="@+id/storageName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nombre del articulo"
@@ -19,6 +20,7 @@
                 android:layout_gravity="center"
                 />
             <TextView
+                android:id="@+id/menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="⋮"
@@ -38,6 +40,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/DescriptionStorage"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:maxLength="85"
@@ -49,38 +52,40 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
-
                 <TextView
+                    android:id="@+id/StockMin"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
                     android:text="20"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:gravity="center_vertical"
-                    android:paddingHorizontal="28dp"
+                    android:paddingHorizontal="25dp"
                     android:textAlignment="gravity"
                     android:maxLength="2"
                     android:tooltipText="Mínimo de elementos que puede haber en stock"
                     />
                 <TextView
+                    android:id="@+id/StockMax"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
                     android:text="20"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:gravity="center_vertical"
-                    android:paddingHorizontal="28dp"
+                    android:paddingHorizontal="25dp"
                     android:textAlignment="gravity"
                     android:tooltipText="Máximo de elementos que puede haber en stock"
                     />
+
                 <TextView
+                    android:id="@+id/Stock"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
-                    android:text="20"
-                    android:textSize="20sp"
                     android:gravity="center_vertical"
-                    android:paddingHorizontal="28dp"
+                    android:paddingHorizontal="25dp"
+                    android:text="20"
                     android:textAlignment="gravity"
-                    android:tooltipText="Número de elementos que hay ahora en stock"
-                    />
+                    android:textSize="15sp"
+                    android:tooltipText="Número de elementos que hay ahora en stock" />
             </LinearLayout>
 
         </LinearLayout>

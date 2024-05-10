@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">FireMind</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <array name="typesItems">
+        <item>Fruta</item>
+        <item>Verdura</item>
+        <item>Pescado</item>
+        <item>Carne</item>
+        <item>Limpieza</item>
+        <item>Pan, pasta o arroz</item>
+        <item>Legumbres</item>
+        <item>Despensa y enlatados</item>
+        <item>Lácteos</item>
+        <item>Bollería y dulces</item>
+        <item>Otros</item>
+    </array>
 </resources>

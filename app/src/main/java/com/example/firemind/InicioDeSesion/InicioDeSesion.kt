@@ -1,6 +1,7 @@
 package com.example.firemind.InicioDeSesion
 
 import User
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -14,12 +15,14 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import com.example.firemind.Home.MainActivity
 import com.example.firemind.R
+import com.example.firemind.Storage.dialogNotification
 import com.google.firebase.FirebaseApp
 import java.util.Calendar
 import com.google.firebase.auth.FirebaseAuth
 
-class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher {
+class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher, dialogNotification {
 
     private lateinit var editTextEmail : EditText
     private lateinit var editTextPassword : EditText
@@ -40,9 +43,7 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher {
         buttonCrearCuenta = findViewById(R.id.CrearCuenta)
         buttonInicioDeSesion = findViewById(R.id.InicioDeSesion)
         biometria = findViewById(R.id.Biometria)
-
         buttonInicioDeSesion.isEnabled = false
-        biometria.isEnabled = false
         var testUser = UserRecords(this).getUserDataDefault()
 
         if(testUser != null){
@@ -50,21 +51,17 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher {
             editTextEmail.setText(user.email)
             editTextPassword.setText(user.pass)
         } else{
-            biometria.isEnabled = false
-            buttonCrearCuenta.isEnabled = false
             buttonInicioDeSesion.isEnabled = false
         }
-
         buttonCrearCuenta.setOnClickListener(this)
         buttonInicioDeSesion.setOnClickListener(this)
+        editTextEmail.addTextChangedListener(this)
+        editTextPassword.addTextChangedListener(this)
         biometria.setOnClickListener(this)
 
         FirebaseApp.initializeApp(this)
         auth = FirebaseAuth.getInstance()
-        buttonCrearCuenta.addTextChangedListener(this)
         buttonInicioDeSesion.addTextChangedListener(this)
-
-
 
         if(androidx.biometric.BiometricManager.from(this).canAuthenticate()
             == androidx.biometric.BiometricManager.BIOMETRIC_SUCCESS
@@ -86,7 +83,8 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.CrearCuenta -> {
-                crearUsuario()
+                var dialog = DialogInitSession()
+                dialog.show(supportFragmentManager, "User")
             }
             R.id.InicioDeSesion -> {
                 iniciarSesion()
@@ -98,7 +96,6 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher {
     }
     @RequiresApi(Build.VERSION_CODES.Q)
     fun biometria(auth: BiometricPrompt.PromptInfo){
-
         if(canAuth){
             BiometricPrompt(this, ContextCompat.getMainExecutor(this),
                 object : BiometricPrompt.AuthenticationCallback() {
@@ -117,6 +114,8 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher {
                         var mail = sharedp.getString("email", "")
                         Toast.makeText(applicationContext, "Autenticación exitosa", Toast.LENGTH_SHORT)
                             .show()
+                        goto()
+
                     }
 
                     override fun onAuthenticationFailed() {
@@ -135,15 +134,16 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
+                   intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                 } else {
                     Toast.makeText(this, "Error al iniciar sesión: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }
     fun crearUsuario(){
-        val email = editTextEmail.text.toString()
-        val password = editTextPassword.text.toString()
+        val email = user.email
+        val password = user.pass
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -176,8 +176,21 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher {
     }
 
     override fun afterTextChanged(s: Editable?) {
-        buttonCrearCuenta.isEnabled = editTextEmail.text.isNotEmpty() && editTextPassword.text.isNotEmpty()
         buttonInicioDeSesion.isEnabled = editTextEmail.text.isNotEmpty() && editTextPassword.text.isNotEmpty()
+    }
+
+    override fun onDismissDialog(b: Boolean) {
+
+    }
+
+    fun goto(){
+        intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onCreateUser(user: User) {
+        this.user = user
+        crearUsuario()
     }
 
 }

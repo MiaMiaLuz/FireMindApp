@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="40dp">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre del artículo"
+        android:id="@+id/nomrbeArt"
+        android:layout_marginVertical="10dp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Descripcion del artículo"
+        android:id="@+id/desciptionArt"
+        android:layout_marginVertical="10dp"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/numberPicker"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginVertical="10dp"
+        >
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:id="@+id/stockMin"
+            android:layout_marginHorizontal="30dp"
+            />
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:id="@+id/stockMax"
+            android:layout_marginHorizontal="30dp"
+            />
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:id="@+id/stockAct"
+            android:layout_marginHorizontal="30dp"
+            />
+    </LinearLayout>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/type"
+        android:layout_marginVertical="20dp"
+        />
+
+</LinearLayout>

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/filtrar" android:title="Filtrar por:"></item>
-    <group android:id="@+id/filtrado" android:checkableBehavior="single">
-        <item android:id="@+id/tipo" android:title="Tipo"></item>
-        <item android:id="@+id/nombre" android:title="Nombre"></item>
-        <item android:id="@+id/stock" android:title="Stock"></item>
-    </group>
-    <item android:id="@+id/addArt" android:title="Añadir artículo"></item>
-    <item android:id="@+id/end" android:title="Terminar compra"></item>
+        <item android:id="@+id/filtrar" android:title="Filtrar por:">
+            <menu>
+                <group android:id="@+id/filtrado" android:checkableBehavior="single">
+                    <item android:id="@+id/tipo" android:title="Tipo" />
+                    <item android:id="@+id/nombre" android:title="Nombre" />
+                    <item android:id="@+id/stock" android:title="Stock" />
+                </group>
+            </menu>
+        </item>
+        <item android:id="@+id/addArt" android:title="Añadir artículo" />
+        <item android:id="@+id/end" android:title="Terminar compra" />
 </menu>
