@@ -3,7 +3,7 @@ package com.example.firemind.Clases
 import com.google.firebase.database.PropertyName
 
 class Storage {
-    lateinit var id : String
+    var id : String = ""
     lateinit var name: String
     lateinit var description: String
     var stockMin: Int = 0
