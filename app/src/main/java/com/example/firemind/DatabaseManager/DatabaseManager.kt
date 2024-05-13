@@ -1,16 +1,11 @@
 package com.example.firemind.DatabaseManager
 
-import User
-import android.widget.Toast
 import com.example.firemind.Clases.Storage
-import com.example.firemind.Storage.dialogNotification
-import com.google.api.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
-import java.util.ArrayList
 
 class DatabaseManager {
 
@@ -57,25 +52,34 @@ class DatabaseManager {
                 }
         }
     }
-    fun modifyStorage(updatedStorage: Storage) {
+    fun modifyStorage(updatedStorage: ArrayList<Storage>) {
         val user = FirebaseAuth.getInstance().currentUser
-        updatedStorage.user = user?.email.toString()
+        val userEmail = user?.email.toString()
+
+        updatedStorage.forEach { storage ->
+            storage.user = userEmail
+        }
+
         val db = FirebaseFirestore.getInstance()
         val collectionRef = db.collection("Storage")
-        user?.let {
-            val storageId = updatedStorage.name
-            storageId?.let { id ->
-                collectionRef.document(id)
-                    .set(updatedStorage)
-                    .addOnSuccessListener {
-                        println("Artículo modificado con éxito")
-                    }
-                    .addOnFailureListener { e ->
-                        println("Error al modificar el artículo: $e")
-                    }
+
+        user?.let { currentUser ->
+            updatedStorage.forEach { storage ->
+                val storageId = storage.name
+                storageId?.let { id ->
+                    collectionRef.document(id)
+                        .set(storage)
+                        .addOnSuccessListener {
+                            println("Artículo modificado con éxito")
+                        }
+                        .addOnFailureListener { e ->
+                            println("Error al modificar el artículo: $e")
+                        }
+                }
             }
         }
     }
+
     fun dropStorage(updatedStorage: Storage) {
         val user = FirebaseAuth.getInstance().currentUser
         updatedStorage.user = user?.email.toString()

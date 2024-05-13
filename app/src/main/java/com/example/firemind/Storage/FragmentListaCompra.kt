@@ -1,13 +1,13 @@
 package com.example.firemind.Storage
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firemind.Clases.Storage
@@ -22,7 +22,7 @@ class FragmentListaCompra : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter
-    private var dataList = ArrayList<Storage> ()
+    private var dataList = ArrayList<Storage>()
     private var db = DatabaseManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +65,9 @@ class FragmentListaCompra : Fragment() {
         }
     }
 
+    fun actRegistros(){
+        db.modifyStorage(dataList)
+    }
 
     private fun fetchStorageData() {
         GlobalScope.launch(Dispatchers.Main) {

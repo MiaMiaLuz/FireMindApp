@@ -4,20 +4,27 @@ import Task
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firemind.R
 import com.example.firemind.RV.RV_Tareas_Adapter
-import com.example.firemind.Storage.MyAdapter
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 
-class BlankFragmentMainActivity : Fragment() {
+class BlankFragmentMainActivity : Fragment(), OnClickListener {
 
     private var listaTareasDemo = ArrayList<Task>()
     private var listaChatsDemo = ArrayList<Task>()
+    private lateinit var flechaDer : ImageView
+    private lateinit var flechaIzq : ImageView
+    private var dayActual = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -29,21 +36,34 @@ class BlankFragmentMainActivity : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+
         listaTareasDemo.addAll(generateTasks())
 
         val view = inflater.inflate(R.layout.fragment_blank_main_activity, container, false)
         val listaDeTareas: RecyclerView = view.findViewById(R.id.ListaDeTareas)
+        val day : TextView = view.findViewById(R.id.Fecha)
+        day.text = getTodayDateString()
+        flechaDer = view.findViewById(R.id.FlechaDer)
+        flechaIzq = view.findViewById(R.id.FlechaIzq)
+        flechaIzq.setOnClickListener(this)
+        flechaDer.setOnClickListener(this)
+
         listaDeTareas.layoutManager = LinearLayoutManager(activity)
 
         val chat: RecyclerView = view.findViewById(R.id.Chat)
         var adapter = RV_Tareas_Adapter(listaTareasDemo)
-
         listaDeTareas.adapter = adapter
+
         adapter.notifyDataSetChanged()
 
         return view
     }
-
+    fun getTodayDateString(): String {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, dayActual)
+        val dateFormat = SimpleDateFormat("EEEE, d 'de' MMMM", Locale.getDefault())
+        return dateFormat.format(calendar.time)
+    }
     fun generateTasks(): List<Task> {
         val tasks = mutableListOf<Task>()
 
@@ -79,7 +99,7 @@ class BlankFragmentMainActivity : Fragment() {
                 descriptions[i],
                 Calendar.getInstance(),
                 Calendar.getInstance()
-                    .apply { add(Calendar.DAY_OF_MONTH, 7) }, // Fecha de finalización en una semana
+                    .apply { add(Calendar.DAY_OF_MONTH, 7) },
                 false,
                 false,
                 ArrayList()
@@ -88,5 +108,13 @@ class BlankFragmentMainActivity : Fragment() {
         }
 
         return tasks
+    }
+
+    override fun onClick(v: View?) {
+        if(v?.id == R.id.FlechaDer){
+            dayActual += 1
+        } else if (v?.id == R.id.FlechaIzq){
+            dayActual += -1
+        }
     }
 }

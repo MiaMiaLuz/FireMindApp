@@ -7,13 +7,11 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
 import com.example.firemind.DatabaseManager.DatabaseManager
 import com.example.firemind.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 class ActivityStorage : AppCompatActivity(), OnClickListener, dialogNotification{
     private lateinit var boton : FloatingActionButton
@@ -59,6 +57,9 @@ class ActivityStorage : AppCompatActivity(), OnClickListener, dialogNotification
                     true
                 }
                 R.id.end->{
+                    var fg : FragmentManager = supportFragmentManager
+                    var fragmentActivo =  fg.findFragmentById(R.id.FrameStorage) as? FragmentListaCompra
+                    fragmentActivo?.actRegistros()
                     true
                 }
                 else -> { true }

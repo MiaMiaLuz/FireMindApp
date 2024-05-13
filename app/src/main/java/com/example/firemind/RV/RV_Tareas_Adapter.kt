@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.firemind.R
 
 class RV_Tareas_Adapter(private val dataList: List<Task>) : RecyclerView.Adapter<RV_Tareas_Adapter.TareaViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TareaViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_task_simple, parent, false)
         return TareaViewHolder(view)

@@ -1,6 +1,5 @@
 package com.example.firemind.Storage
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,9 +18,7 @@ import java.io.Serializable
 
 class MyAdapter(private var dataList: List<Storage>, type: Int) : RecyclerView.Adapter<MyAdapter.ViewHolder>(), Serializable {
     private var Type: Int = type
-    lateinit var contexto : Context
     private var dbm = DatabaseManager()
-    private var myStorage: List<Storage> = dataList
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view : View
