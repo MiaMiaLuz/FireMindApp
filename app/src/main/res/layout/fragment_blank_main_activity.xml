@@ -8,7 +8,7 @@
         android:layout_width="350dp"
         android:layout_height="610dp"
         android:layout_centerInParent="true"
-        android:background="#9C27B0">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Prueba"
+                    android:text="Tareas"
                     android:textAlignment="gravity"
                     android:textSize="30sp" />
 
@@ -49,6 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#2196F3"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -63,8 +64,7 @@
                 android:layout_height="40dp"
                 android:text="Chat"
                 android:layout_gravity="center"
-                android:gravity="center_vertical|left"
-                android:textAlignment="gravity"
+                android:textAlignment="center"
                 android:textSize="30sp"
                 android:layout_marginHorizontal="20dp"
                 android:background="#FF5722"
@@ -75,6 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#FFC107"
+
                 />
 
         </LinearLayout>

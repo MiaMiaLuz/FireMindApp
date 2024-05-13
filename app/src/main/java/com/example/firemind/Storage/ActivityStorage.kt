@@ -2,18 +2,13 @@ package com.example.firemind.Storage
 
 import User
 import ViewPagerAdapter
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
-import android.widget.FrameLayout
 import android.widget.PopupMenu
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
-import com.example.firemind.Clases.Storage
 import com.example.firemind.DatabaseManager.DatabaseManager
-import com.example.firemind.Home.BlankFragmentMainActivity
 import com.example.firemind.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
