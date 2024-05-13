@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firemind.R
 import com.example.firemind.RV.RV_Tareas_Adapter
+import com.example.firemind.Storage.MyAdapter
 import java.util.Calendar
 
 
@@ -31,9 +33,13 @@ class BlankFragmentMainActivity : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_blank_main_activity, container, false)
         val listaDeTareas: RecyclerView = view.findViewById(R.id.ListaDeTareas)
-        val chat: RecyclerView = view.findViewById(R.id.Chat)
+        listaDeTareas.layoutManager = LinearLayoutManager(activity)
 
-        listaDeTareas.adapter = RV_Tareas_Adapter(listaTareasDemo)
+        val chat: RecyclerView = view.findViewById(R.id.Chat)
+        var adapter = RV_Tareas_Adapter(listaTareasDemo)
+
+        listaDeTareas.adapter = adapter
+        adapter.notifyDataSetChanged()
 
         return view
     }
