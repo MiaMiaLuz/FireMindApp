@@ -48,7 +48,6 @@ class ActivityStorage : AppCompatActivity(), OnClickListener, dialogNotification
                     true
                 }
                 R.id.stock ->{
-
                     true
                 }
                 R.id.addArt ->{

@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Storage.ActivityStorage"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@color/fondo">
 
-
-    <androidx.viewpager.widget.ViewPager
+<androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/FrameStorage"/>

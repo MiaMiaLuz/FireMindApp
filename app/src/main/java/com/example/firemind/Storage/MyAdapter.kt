@@ -77,7 +77,10 @@ class MyAdapter(private var dataList: List<Storage>, type: Int) : RecyclerView.A
 
             } else {
                 val textViewCompra: TextView = itemView.findViewById(R.id.nombreCompra)
-                val numberCompra: NumberPicker = itemView.findViewById(R.id.elementos)
+                var numberPicker: NumberPicker = itemView.findViewById(R.id.elementos)
+                numberPicker.minValue = 0
+                numberPicker.maxValue = 100
+                numberPicker.value = 1
                 val check: CheckBox = itemView.findViewById(R.id.comprados)
                 textViewCompra.text = item.name
             }

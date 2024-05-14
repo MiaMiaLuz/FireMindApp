@@ -7,7 +7,8 @@
     android:id="@+id/drawerLay"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context=".Home.MainActivity">
+    tools:context=".Home.MainActivity"
+    android:background="@color/fondo">
 
     <LinearLayout
         android:layout_width="match_parent"
