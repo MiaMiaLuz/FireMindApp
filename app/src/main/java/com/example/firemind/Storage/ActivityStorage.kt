@@ -5,6 +5,7 @@ import ViewPagerAdapter
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
+import android.widget.EditText
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
@@ -15,11 +16,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ActivityStorage : AppCompatActivity(), OnClickListener, dialogNotification{
     private lateinit var boton : FloatingActionButton
+    private lateinit var editText: EditText
     private var db = DatabaseManager()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_storage)
         boton = findViewById(R.id.menuContextualStorage)
+        editText = findViewById(R.id.editTextFiltro)
         boton.setOnClickListener(this)
 
         recharge()
@@ -36,28 +39,31 @@ class ActivityStorage : AppCompatActivity(), OnClickListener, dialogNotification
     override fun onClick(v: View?) {
         val popupMenu = PopupMenu(applicationContext, v)
         popupMenu.inflate(R.menu.contextual_menu_storage)
+        var fg : FragmentManager = supportFragmentManager
+        var fragmentActivo =  fg.findFragmentById(R.id.FrameStorage) as? FragmentListaCompra
         popupMenu.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.filtrar ->{
                     true
                 }
                 R.id.tipo ->{
+                    editText.visibility = View.VISIBLE
                     true
                 }
                 R.id.nombre ->{
+                    editText.visibility = View.VISIBLE
                     true
                 }
                 R.id.stock ->{
+                    editText.visibility = View.VISIBLE
                     true
                 }
                 R.id.addArt ->{
-                    var dialog = DialogAddItem()
+                    var dialog = DialogAddItem(false,null)
                     dialog.show(supportFragmentManager, "ADD")
                     true
                 }
                 R.id.end->{
-                    var fg : FragmentManager = supportFragmentManager
-                    var fragmentActivo =  fg.findFragmentById(R.id.FrameStorage) as? FragmentListaCompra
                     fragmentActivo?.actRegistros()
                     true
                 }

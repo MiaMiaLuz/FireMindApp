@@ -16,7 +16,7 @@ import com.example.firemind.Clases.Storage
 import com.example.firemind.DatabaseManager.DatabaseManager
 import com.example.firemind.R
 
-class DialogAddItem : DialogFragment(), DialogInterface.OnClickListener {
+class DialogAddItem : DialogFragment, DialogInterface.OnClickListener {
 
     private lateinit var nombreArticulo: EditText
     private lateinit var descripcionArticulo: EditText
@@ -26,6 +26,14 @@ class DialogAddItem : DialogFragment(), DialogInterface.OnClickListener {
     private lateinit var tipoSpinner: Spinner
     private var DB = DatabaseManager()
     private var dialogInterface : dialogNotification? = null
+    private var modify: Boolean = true
+    private lateinit var storage: Storage
+    constructor(modify : Boolean, storage: Storage?){
+        this.modify = modify
+        if (storage != null) {
+            this.storage = storage
+        }
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext())
@@ -47,6 +55,14 @@ class DialogAddItem : DialogFragment(), DialogInterface.OnClickListener {
         stockActual.maxValue = 1000
         tipoSpinner.adapter = ArrayAdapter.createFromResource(requireContext(), R.array.typesItems, android.R.layout.simple_spinner_item)
 
+        if(modify){
+            nombreArticulo.setText(storage.name)
+            descripcionArticulo.setText(storage.description)
+            stockMin.value = storage.stockMin
+            stockMax.value = storage.stockMax
+            stockActual.value = storage.currentStock
+        }
+
         builder.setView(view)
         builder.setPositiveButton("Aceptar", this)
         builder.setNegativeButton("Cancelar", this)
@@ -55,9 +71,7 @@ class DialogAddItem : DialogFragment(), DialogInterface.OnClickListener {
     }
 
     override fun onClick(dialog: DialogInterface?, which: Int) {
-
             when (which) {
-
                 DialogInterface.BUTTON_POSITIVE -> {
                     if(nombreArticulo.text.isNotEmpty()) {
                         val nombre = nombreArticulo.text.toString()

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -43,33 +42,18 @@ class FragmentListaCompra : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.tipo -> {
-                true
-            }
-            R.id.nombre -> {
-                true
-            }
-            R.id.stock -> {
-                true
-            }
-            R.id.addArt -> {
-                true
-            }
-            R.id.end -> {
-
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     fun actRegistros(){
         db.modifyStorage(dataList)
-        for(i in dataList){
+        fetchStorageData()
+    }
+    fun filtrarPorTipo(tipo : String){
 
-        }
+    }
+    fun filtrarPorNombre(nombre : String){
+
+    }
+    fun filtrarPorStock(stock : Int){
+
     }
 
     private fun fetchStorageData() {
