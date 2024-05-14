@@ -3,19 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Storage.ActivityStorage"
     android:orientation="horizontal"
     android:background="@color/fondo">
 
-    <EditText
-        android:id="@+id/editTextFiltro"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
-
-        <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+            android:layout_gravity="bottom"
         android:id="@+id/FrameStorage"/>
 
 

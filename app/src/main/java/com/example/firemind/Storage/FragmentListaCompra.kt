@@ -46,15 +46,6 @@ class FragmentListaCompra : Fragment() {
         db.modifyStorage(dataList)
         fetchStorageData()
     }
-    fun filtrarPorTipo(tipo : String){
-
-    }
-    fun filtrarPorNombre(nombre : String){
-
-    }
-    fun filtrarPorStock(stock : Int){
-
-    }
 
     private fun fetchStorageData() {
         GlobalScope.launch(Dispatchers.Main) {

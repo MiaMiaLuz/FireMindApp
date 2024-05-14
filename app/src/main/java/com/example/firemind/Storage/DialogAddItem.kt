@@ -89,7 +89,12 @@ class DialogAddItem : DialogFragment, DialogInterface.OnClickListener {
                             stockActualValue,
                             tipo
                         )
-                        DB.addStorage(newStorage)
+                        if(modify){
+                            newStorage.id = storage.id
+                            DB.modifyStorage(arrayListOf(newStorage))
+                        } else {
+                            DB.addStorage(newStorage)
+                        }
                     } else {
                         Toast.makeText(requireContext(), "Introduce todos los datos", Toast.LENGTH_SHORT).show()
                     }

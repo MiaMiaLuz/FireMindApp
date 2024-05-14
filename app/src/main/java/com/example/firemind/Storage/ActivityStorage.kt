@@ -3,10 +3,14 @@ package com.example.firemind.Storage
 import User
 import ViewPagerAdapter
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.View.OnClickListener
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.PopupMenu
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
@@ -14,15 +18,14 @@ import com.example.firemind.DatabaseManager.DatabaseManager
 import com.example.firemind.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class ActivityStorage : AppCompatActivity(), OnClickListener, dialogNotification{
+class ActivityStorage : AppCompatActivity(), OnClickListener, dialogNotification, TextWatcher{
     private lateinit var boton : FloatingActionButton
-    private lateinit var editText: EditText
+
     private var db = DatabaseManager()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_storage)
         boton = findViewById(R.id.menuContextualStorage)
-        editText = findViewById(R.id.editTextFiltro)
         boton.setOnClickListener(this)
 
         recharge()
@@ -43,21 +46,6 @@ class ActivityStorage : AppCompatActivity(), OnClickListener, dialogNotification
         var fragmentActivo =  fg.findFragmentById(R.id.FrameStorage) as? FragmentListaCompra
         popupMenu.setOnMenuItemClickListener {
             when(it.itemId){
-                R.id.filtrar ->{
-                    true
-                }
-                R.id.tipo ->{
-                    editText.visibility = View.VISIBLE
-                    true
-                }
-                R.id.nombre ->{
-                    editText.visibility = View.VISIBLE
-                    true
-                }
-                R.id.stock ->{
-                    editText.visibility = View.VISIBLE
-                    true
-                }
                 R.id.addArt ->{
                     var dialog = DialogAddItem(false,null)
                     dialog.show(supportFragmentManager, "ADD")
@@ -65,6 +53,7 @@ class ActivityStorage : AppCompatActivity(), OnClickListener, dialogNotification
                 }
                 R.id.end->{
                     fragmentActivo?.actRegistros()
+                    recharge()
                     true
                 }
                 else -> { true }
@@ -78,6 +67,18 @@ class ActivityStorage : AppCompatActivity(), OnClickListener, dialogNotification
         }
     }
     override fun onCreateUser(user: User) {
+
+    }
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+    }
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+    }
+
+    override fun afterTextChanged(s: Editable?) {
 
     }
 }

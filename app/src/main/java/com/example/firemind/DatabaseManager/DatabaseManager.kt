@@ -26,6 +26,28 @@ class DatabaseManager {
         }
         return storageList
     }
+
+    suspend fun getStorageFiltered(filterColumn: String, filterText: String): ArrayList<Storage> {
+        val user = FirebaseAuth.getInstance().currentUser
+        val db = Firebase.firestore
+        val collectionRef = db.collection("Storage")
+        var storageList = ArrayList<Storage>()
+        if (user != null) {
+            val querySnapshot = collectionRef
+                .whereEqualTo("user", user.email)
+                .whereEqualTo(filterColumn, filterText)
+                .get().await()
+            for (document in querySnapshot.documents) {
+                val storageData = document.toObject(Storage::class.java)
+                storageData?.id = document.id
+                if (storageData != null) {
+                    storageList.add(storageData)
+                }
+            }
+        }
+        return storageList
+    }
+
     suspend fun getListBuys(): ArrayList<Storage> {
         var lista = getStorage()
         var i = 0
@@ -65,7 +87,7 @@ class DatabaseManager {
 
         user?.let { currentUser ->
             updatedStorage.forEach { storage ->
-                val storageId = storage.name
+                val storageId = storage.id
                 storageId?.let { id ->
                     collectionRef.document(id)
                         .set(storage)

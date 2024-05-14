@@ -5,7 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.NumberPicker
+import android.widget.NumberPicker.OnValueChangeListener
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firemind.Clases.Storage
@@ -16,7 +18,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.Serializable
 
-class MyAdapter(private var dataList: List<Storage>, type: Int) : RecyclerView.Adapter<MyAdapter.ViewHolder>(), Serializable {
+class MyAdapter(private var dataList: MutableList<Storage>, type: Int) : RecyclerView.Adapter<MyAdapter.ViewHolder>(), Serializable {
+
     private var Type: Int = type
     private var dbm = DatabaseManager()
 
@@ -39,8 +42,12 @@ class MyAdapter(private var dataList: List<Storage>, type: Int) : RecyclerView.A
         return dataList.size
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), OnValueChangeListener {
+        private lateinit var check: CheckBox
+        private lateinit var item : Storage
+        private lateinit var numberPicker: NumberPicker
         fun bind(item: Storage, Type : Int) {
+            this.item = item
             if(Type == 1){
                 val textView: TextView = itemView.findViewById(R.id.storageName)
                 val textViewDesc: TextView = itemView.findViewById(R.id.DescriptionStorage)
@@ -61,7 +68,10 @@ class MyAdapter(private var dataList: List<Storage>, type: Int) : RecyclerView.A
                     popupMenu.setOnMenuItemClickListener { menuItem ->
                         when (menuItem.itemId) {
                             R.id.modificar -> {
-                                //dbm.modifyStorage()
+                                val dialogFragment = DialogAddItem(true, item)
+                                val activity = itemView.context as AppCompatActivity
+                                dialogFragment.show(activity.supportFragmentManager, "my_dialog")
+                                fetchStorageData()
                                 true
                             }
                             R.id.eliminar -> {
@@ -77,12 +87,14 @@ class MyAdapter(private var dataList: List<Storage>, type: Int) : RecyclerView.A
 
             } else {
                 val textViewCompra: TextView = itemView.findViewById(R.id.nombreCompra)
-                var numberPicker: NumberPicker = itemView.findViewById(R.id.elementos)
+                numberPicker = itemView.findViewById(R.id.elementos)
                 numberPicker.minValue = 0
                 numberPicker.maxValue = 100
-                numberPicker.value = 1
-                val check: CheckBox = itemView.findViewById(R.id.comprados)
+                numberPicker.value = item.currentStock
+                check = itemView.findViewById(R.id.comprados)
                 textViewCompra.text = item.name
+
+                numberPicker.setOnValueChangedListener(this)
             }
         }
 
@@ -95,6 +107,15 @@ class MyAdapter(private var dataList: List<Storage>, type: Int) : RecyclerView.A
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
+            }
+        }
+
+        override fun onValueChange(picker: NumberPicker?, oldVal: Int, newVal: Int) {
+            if(check.isChecked){
+                item.currentStock = numberPicker.value
+                dataList[adapterPosition] = item
+                // Notify the adapter that the item has changed
+                notifyItemChanged(adapterPosition)
             }
         }
     }

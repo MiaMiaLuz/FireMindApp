@@ -14,4 +14,9 @@
         <item>Bollería y dulces</item>
         <item>Otros</item>
     </array>
+    <array name="filtros">
+        <item>Nombre</item>
+        <item>Tipo</item>
+        <item>Stock</item>
+    </array>
 </resources>
