@@ -21,13 +21,12 @@
 
             <TextView
                 android:id="@+id/titulo"
-                android:layout_width="280dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginEnd="39dp"
-                android:layout_toStartOf="@+id/finished"
-                android:layout_toRightOf="@id/linearType"
+                android:layout_marginStart="11dp"
+                android:layout_toEndOf="@+id/linearType"
                 android:maxLines="1"
                 android:text="Nombre del elemento"
                 android:textSize="15dp" />
