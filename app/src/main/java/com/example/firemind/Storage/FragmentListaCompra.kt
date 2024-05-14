@@ -67,6 +67,9 @@ class FragmentListaCompra : Fragment() {
 
     fun actRegistros(){
         db.modifyStorage(dataList)
+        for(i in dataList){
+
+        }
     }
 
     private fun fetchStorageData() {
