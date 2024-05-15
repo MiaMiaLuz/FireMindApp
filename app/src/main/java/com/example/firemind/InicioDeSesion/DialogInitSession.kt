@@ -1,5 +1,6 @@
 package com.example.firemind.InicioDeSesion
 
+import UserCollection
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -9,7 +10,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
@@ -21,10 +21,12 @@ import com.example.firemind.Storage.dialogNotification
 class DialogInitSession : DialogFragment(), DialogInterface.OnClickListener, TextWatcher {
 
     private lateinit var nombreUsuario: EditText
+    private lateinit var email: EditText
     private lateinit var contrasenna: EditText
     private lateinit var contrasennaBis: EditText
     private lateinit var establecerCumple: Button
     private lateinit var biometria: CheckBox
+    private lateinit var userCollection : UserCollection
     private var dialogInterface : dialogNotification? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -33,10 +35,12 @@ class DialogInitSession : DialogFragment(), DialogInterface.OnClickListener, Tex
         val view: View = inflater.inflate(R.layout.dialog_iniciar_sesion, null)
 
         nombreUsuario = view.findViewById(R.id.NombreDeUsuario)
+        email = view.findViewById(R.id.Gmail)
         contrasenna = view.findViewById(R.id.Contrasenna)
         contrasennaBis = view.findViewById(R.id.ContrasennaBis)
         establecerCumple = view.findViewById(R.id.Cumple)
         biometria = view.findViewById(R.id.Biometria)
+
 
         contrasennaBis.addTextChangedListener(this)
 
@@ -50,7 +54,12 @@ class DialogInitSession : DialogFragment(), DialogInterface.OnClickListener, Tex
     override fun onClick(dialog: DialogInterface?, which: Int) {
         when (which) {
             DialogInterface.BUTTON_POSITIVE -> {
-
+                userCollection = UserCollection(
+                    email.text.toString(),
+                    contrasenna.text.toString(),
+                    biometria.isChecked
+                )
+                dialogInterface?.onCreateUser(userCollection)
             }
             DialogInterface.BUTTON_NEGATIVE -> {
                 dialog?.dismiss()
@@ -79,7 +88,7 @@ class DialogInitSession : DialogFragment(), DialogInterface.OnClickListener, Tex
     override fun afterTextChanged(s: Editable?) {
         val contrasennaStr = contrasenna.text.toString()
         val contrasennaBisStr = contrasennaBis.text.toString()
-        if(contrasennaStr != contrasennaBisStr){
+        if(contrasennaStr != contrasennaBisStr && contrasennaStr.length == contrasennaBisStr.length){
             Toast.makeText(requireContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
         }
     }

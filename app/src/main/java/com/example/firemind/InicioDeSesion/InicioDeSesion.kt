@@ -1,6 +1,6 @@
 package com.example.firemind.InicioDeSesion
 
-import User
+import UserCollection
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -15,12 +15,13 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import com.example.firemind.DatabaseManager.DatabaseManager
 import com.example.firemind.Home.MainActivity
 import com.example.firemind.R
 import com.example.firemind.Storage.dialogNotification
 import com.google.firebase.FirebaseApp
-import java.util.Calendar
 import com.google.firebase.auth.FirebaseAuth
+import java.util.Calendar
 
 class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher, dialogNotification {
 
@@ -32,7 +33,8 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher, dialog
     private lateinit var auth: FirebaseAuth
     private var canAuth : Boolean = false
     private lateinit var prompt: BiometricPrompt.PromptInfo
-    private lateinit var user : User
+    private lateinit var userCollection : UserCollection
+    private var db = DatabaseManager()
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,9 +49,9 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher, dialog
         var testUser = UserRecords(this).getUserDataDefault()
 
         if(testUser != null){
-            user = testUser
-            editTextEmail.setText(user.email)
-            editTextPassword.setText(user.pass)
+            userCollection = testUser
+            editTextEmail.setText(userCollection.email)
+            editTextPassword.setText(userCollection.pass)
         } else{
             buttonInicioDeSesion.isEnabled = false
         }
@@ -142,8 +144,8 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher, dialog
             }
     }
     fun crearUsuario(){
-        val email = user.email
-        val password = user.pass
+        val email = userCollection.email
+        val password = userCollection.pass
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -157,6 +159,7 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher, dialog
                     ).show()
                 }
             }
+        db.addUser(userCollection)
     }
 
     fun fondo(noche : Int , dia : Int){
@@ -188,8 +191,8 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher, dialog
         startActivity(intent)
     }
 
-    override fun onCreateUser(user: User) {
-        this.user = user
+    override fun onCreateUser(userCollection: UserCollection) {
+        this.userCollection = userCollection
         crearUsuario()
     }
 

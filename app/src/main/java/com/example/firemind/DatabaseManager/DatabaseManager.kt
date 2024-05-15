@@ -1,5 +1,6 @@
 package com.example.firemind.DatabaseManager
 
+import UserCollection
 import com.example.firemind.Clases.Storage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -64,6 +65,20 @@ class DatabaseManager {
         newS.user = user?.email.toString()
         val db = FirebaseFirestore.getInstance()
         val collectionRef = db.collection("Storage")
+        if (user != null) {
+            collectionRef.add(newS)
+                .addOnSuccessListener { documentReference ->
+                    println("Documento agregado con ID: ${documentReference.id}")
+                }
+                .addOnFailureListener { e ->
+                    println("Error al agregar documento: $e")
+                }
+        }
+    }
+    fun addUser(newS: UserCollection) {
+        val user = FirebaseAuth.getInstance().currentUser
+        val db = FirebaseFirestore.getInstance()
+        val collectionRef = db.collection("User")
         if (user != null) {
             collectionRef.add(newS)
                 .addOnSuccessListener { documentReference ->

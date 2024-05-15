@@ -1,8 +1,8 @@
 package com.example.firemind.Storage
 
-import User
+import UserCollection
 
 interface dialogNotification {
     fun onDismissDialog(b : Boolean)
-    fun onCreateUser(user: User)
+    fun onCreateUser(userCollection: UserCollection)
 }

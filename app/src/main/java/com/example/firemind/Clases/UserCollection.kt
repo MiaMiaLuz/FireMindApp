@@ -1,11 +1,8 @@
 
 import java.util.Date
 import java.security.Permission
-import Account
-import Task
-import Liked
 
-public class User{
+public class UserCollection{
 
     var id_user : Int = 0
     lateinit var name : String
@@ -18,7 +15,7 @@ public class User{
     lateinit var permissions : ArrayList <Permission>
     lateinit var tasks : ArrayList <Task>
     lateinit var likeList : Map<String, ArrayList<Liked>>
-    lateinit var friendList : ArrayList<User>
+    lateinit var friendList : ArrayList<UserCollection>
     lateinit var account : Account
 
     fun estParam (name : String, icon : String, birthday : Date, permissions : ArrayList<Permission>, account : Account){

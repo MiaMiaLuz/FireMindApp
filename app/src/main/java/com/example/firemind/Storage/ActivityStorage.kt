@@ -1,16 +1,13 @@
 package com.example.firemind.Storage
 
-import User
+import UserCollection
 import ViewPagerAdapter
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.View.OnClickListener
-import android.widget.ArrayAdapter
-import android.widget.EditText
 import android.widget.PopupMenu
-import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
@@ -66,7 +63,7 @@ class ActivityStorage : AppCompatActivity(), OnClickListener, dialogNotification
             recharge()
         }
     }
-    override fun onCreateUser(user: User) {
+    override fun onCreateUser(userCollection: UserCollection) {
 
     }
 

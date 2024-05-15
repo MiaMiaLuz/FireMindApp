@@ -1,13 +1,11 @@
 
-import java.util.Date
 import java.security.Permissions
-import User
 
 public class Group {
 
     var groupId : Int = 0
     lateinit var groupName : String
-    lateinit var users : Map <Int , User>
+    lateinit var users : Map <Int , UserCollection>
     lateinit var groupPermissions : Permissions
     
     fun showGroup(){

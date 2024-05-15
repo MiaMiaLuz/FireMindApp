@@ -1,14 +1,12 @@
 package com.example.firemind.InicioDeSesion
 
-import User
+import UserCollection
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Build
-import android.service.autofill.UserData
 import androidx.annotation.RequiresApi
 
 class UserRecords (context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -50,36 +48,36 @@ class UserRecords (context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
 
     @RequiresApi(Build.VERSION_CODES.P)
     @SuppressLint("Range")
-    fun getUserDataDefault(): User? {
+    fun getUserDataDefault(): UserCollection? {
         val db = this.readableDatabase
         val columns = arrayOf(COLUMN_ID, COLUMN_EMAIL, COLUMN_PASSWORD, COLUMN_BIO)
         var cursor = db.query("Ejemplo", columns, null, null, null, null, null)
-        var userData: User? = null
+        var userCollectionData: UserCollection? = null
         cursor.use {
             while (cursor.moveToNext()) {
                 val email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL))
                 val password = cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD))
                 val bio = cursor.getString(cursor.getColumnIndex(COLUMN_BIO))
-                userData = User(email, password, bio as Boolean)
+                userCollectionData = UserCollection(email, password, bio as Boolean)
             }
         }
-        return userData
+        return userCollectionData
     }
     @RequiresApi(Build.VERSION_CODES.P)
     @SuppressLint("Range")
-    fun getUserData(email : String): User {
+    fun getUserData(email : String): UserCollection {
         val db = this.readableDatabase
         val columns = arrayOf(COLUMN_ID, COLUMN_EMAIL, COLUMN_PASSWORD, COLUMN_BIO)
         var cursor = db.query(USER_DATA, columns, COLUMN_EMAIL, arrayOf(email), null, null, null)
-        lateinit var userData : User
+        lateinit var userCollectionData : UserCollection
         cursor.use {
             while (cursor.moveToNext()) {
                 val email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL))
                 val password = cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD))
                 val bio = cursor.getString(cursor.getColumnIndex(COLUMN_BIO))
-                userData = User(email, password, bio as Boolean)
+                userCollectionData = UserCollection(email, password, bio as Boolean)
             }
         }
-        return userData
+        return userCollectionData
     }
 }

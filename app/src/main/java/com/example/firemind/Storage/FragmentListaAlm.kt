@@ -1,6 +1,5 @@
 package com.example.firemind.Storage
 
-import User
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
