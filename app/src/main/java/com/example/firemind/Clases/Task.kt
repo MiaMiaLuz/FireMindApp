@@ -9,7 +9,7 @@ class Task(
     var subTask: Boolean,
     var listSubTask: ArrayList<Task>
 ) {
-    private lateinit var id : Integer
+    lateinit var id : String
     fun complete() {
         if (subTask) {
             var complete: Int = 0

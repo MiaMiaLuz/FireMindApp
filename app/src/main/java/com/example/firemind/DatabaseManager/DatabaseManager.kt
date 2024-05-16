@@ -1,5 +1,6 @@
 package com.example.firemind.DatabaseManager
 
+import Task
 import UserCollection
 import com.example.firemind.Clases.Storage
 import com.google.firebase.auth.FirebaseAuth
@@ -7,6 +8,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class DatabaseManager {
 
@@ -23,6 +27,30 @@ class DatabaseManager {
                 if (storageData != null) {
                     storageList.add(storageData)
                 }
+            }
+        }
+        return storageList
+    }
+
+    suspend fun getTasksForDay(calendar: Calendar): ArrayList<Task> {
+        val user = FirebaseAuth.getInstance().currentUser
+        val db = Firebase.firestore
+        val collectionRef = db.collection("Task")
+        val storageList = ArrayList<Task>()
+
+        if (user != null) {
+            val formattedDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
+
+            val querySnapshot = collectionRef
+                .whereEqualTo("user", user.email)
+                .whereEqualTo("initDate", formattedDate)
+                .get()
+                .await()
+
+            for (document in querySnapshot.documents) {
+                val storageData = document.toObject(Task::class.java)
+                storageData?.id = document.id
+                storageData?.let { storageList.add(it) }
             }
         }
         return storageList

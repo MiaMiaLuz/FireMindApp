@@ -72,6 +72,7 @@ dependencies {
     //QR
     implementation("com.google.zxing:core:3.4.1")
     implementation("com.journeyapps:zxing-android-embedded:4.2.0")
-
+    //Calendar
+    implementation("com.prolifiteractive:material-calendarview:2.0.0")
 
 }
