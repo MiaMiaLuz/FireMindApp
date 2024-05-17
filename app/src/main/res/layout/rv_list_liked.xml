@@ -41,6 +41,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="70dp"
                 android:text="tipo"
+                android:textSize="15dp"
                 />
         </LinearLayout>
 
@@ -68,12 +69,14 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="Lo tengo"
+                android:textSize="15dp"
                 android:id="@+id/InProperty"
                 />
             <CheckBox
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Es recomprable"
+                android:textSize="15dp"
                 android:id="@+id/refill"
                 />
         </LinearLayout>

@@ -1,6 +1,6 @@
 package com.example.firemind.InicioDeSesion
 
-import UserCollection
+import User
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
@@ -48,36 +48,36 @@ class UserRecords (context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, 
 
     @RequiresApi(Build.VERSION_CODES.P)
     @SuppressLint("Range")
-    fun getUserDataDefault(): UserCollection? {
+    fun getUserDataDefault(): User? {
         val db = this.readableDatabase
         val columns = arrayOf(COLUMN_ID, COLUMN_EMAIL, COLUMN_PASSWORD, COLUMN_BIO)
         var cursor = db.query("Ejemplo", columns, null, null, null, null, null)
-        var userCollectionData: UserCollection? = null
+        var userData: User? = null
         cursor.use {
             while (cursor.moveToNext()) {
                 val email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL))
                 val password = cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD))
                 val bio = cursor.getString(cursor.getColumnIndex(COLUMN_BIO))
-                userCollectionData = UserCollection(email, password, bio as Boolean)
+                userData = User(email, password, bio as Boolean)
             }
         }
-        return userCollectionData
+        return userData
     }
     @RequiresApi(Build.VERSION_CODES.P)
     @SuppressLint("Range")
-    fun getUserData(email : String): UserCollection {
+    fun getUserData(email : String): User {
         val db = this.readableDatabase
         val columns = arrayOf(COLUMN_ID, COLUMN_EMAIL, COLUMN_PASSWORD, COLUMN_BIO)
         var cursor = db.query(USER_DATA, columns, COLUMN_EMAIL, arrayOf(email), null, null, null)
-        lateinit var userCollectionData : UserCollection
+        lateinit var userData : User
         cursor.use {
             while (cursor.moveToNext()) {
                 val email = cursor.getString(cursor.getColumnIndex(COLUMN_EMAIL))
                 val password = cursor.getString(cursor.getColumnIndex(COLUMN_PASSWORD))
                 val bio = cursor.getString(cursor.getColumnIndex(COLUMN_BIO))
-                userCollectionData = UserCollection(email, password, bio as Boolean)
+                userData = User(email, password, bio as Boolean)
             }
         }
-        return userCollectionData
+        return userData
     }
 }

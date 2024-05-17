@@ -1,6 +1,6 @@
 package com.example.firemind.InicioDeSesion
 
-import UserCollection
+import User
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -33,7 +33,7 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher, dialog
     private lateinit var auth: FirebaseAuth
     private var canAuth : Boolean = false
     private lateinit var prompt: BiometricPrompt.PromptInfo
-    private lateinit var userCollection : UserCollection
+    private lateinit var user : User
     private var db = DatabaseManager()
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,9 +49,9 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher, dialog
         var testUser = UserRecords(this).getUserDataDefault()
 
         if(testUser != null){
-            userCollection = testUser
-            editTextEmail.setText(userCollection.email)
-            editTextPassword.setText(userCollection.pass)
+            user = testUser
+            editTextEmail.setText(user.email)
+            editTextPassword.setText(user.pass)
         } else{
             buttonInicioDeSesion.isEnabled = false
         }
@@ -144,8 +144,8 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher, dialog
             }
     }
     fun crearUsuario(){
-        val email = userCollection.email
-        val password = userCollection.pass
+        val email = user.email
+        val password = user.pass
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -159,7 +159,7 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher, dialog
                     ).show()
                 }
             }
-        db.addUser(userCollection)
+        db.addUser(user)
     }
 
     fun fondo(noche : Int , dia : Int){
@@ -191,8 +191,8 @@ class InicioDeSesion : AppCompatActivity(), OnClickListener, TextWatcher, dialog
         startActivity(intent)
     }
 
-    override fun onCreateUser(userCollection: UserCollection) {
-        this.userCollection = userCollection
+    override fun onCreateUser(user: User) {
+        this.user = user
         crearUsuario()
     }
 

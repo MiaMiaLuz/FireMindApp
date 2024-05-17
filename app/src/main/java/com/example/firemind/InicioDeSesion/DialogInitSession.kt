@@ -1,6 +1,6 @@
 package com.example.firemind.InicioDeSesion
 
-import UserCollection
+import User
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -26,7 +26,7 @@ class DialogInitSession : DialogFragment(), DialogInterface.OnClickListener, Tex
     private lateinit var contrasennaBis: EditText
     private lateinit var establecerCumple: Button
     private lateinit var biometria: CheckBox
-    private lateinit var userCollection : UserCollection
+    private lateinit var user : User
     private var dialogInterface : dialogNotification? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -54,12 +54,12 @@ class DialogInitSession : DialogFragment(), DialogInterface.OnClickListener, Tex
     override fun onClick(dialog: DialogInterface?, which: Int) {
         when (which) {
             DialogInterface.BUTTON_POSITIVE -> {
-                userCollection = UserCollection(
+                user = User(
                     email.text.toString(),
                     contrasenna.text.toString(),
                     biometria.isChecked
                 )
-                dialogInterface?.onCreateUser(userCollection)
+                dialogInterface?.onCreateUser(user)
             }
             DialogInterface.BUTTON_NEGATIVE -> {
                 dialog?.dismiss()
